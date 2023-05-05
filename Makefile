@@ -6,3 +6,6 @@ publish: #проверка публикации проекта
 
 gendiff:
 	node bin/gendiff.js
+
+lint:
+	npx eslint .
