@@ -2,6 +2,7 @@ name: fullstack-javascript-project-46
 
 on:
   - push
+  - pull_request
 env:
   CI: true
 
@@ -18,11 +19,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cash: 'npm'
       - run: make install
       - run: make lint
       - run: make test
       - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.4
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
         with:
