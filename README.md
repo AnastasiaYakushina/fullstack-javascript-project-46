@@ -5,3 +5,4 @@
 
 [![fullstack-javascript-project-46](https://github.com/AnastasiaYakushina/fullstack-javascript-project-46/actions/workflows/fullstack-javascript-project-46.yml/badge.svg)](https://github.com/AnastasiaYakushina/fullstack-javascript-project-46/actions)
 
+<a href="https://codeclimate.com/github/AnastasiaYakushina/fullstack-javascript-project-46/test_coverage"><img src="https://api.codeclimate.com/v1/badges/0209126ae2847e7a7352/test_coverage" /></a>
