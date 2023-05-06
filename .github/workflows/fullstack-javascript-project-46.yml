@@ -1,25 +1,30 @@
 name: fullstack-javascript-project-46
 
-on: push
+on: push   
+
+env:
+  CI: true
 
 jobs:
-  make-test:
-    name: Runs tests
+  build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: make install
-        env:
-          CI: true
-      - name: Run tests
-        run: make test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: make install
+      - run: make lint
+      - run: make test  
       - name: Test & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.4
+        uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.HEXLET_ID }}
         with:
           coverageCommand: make test-coverage
-          debug: true
+          debug: true        
