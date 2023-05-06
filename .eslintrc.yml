@@ -1,6 +1,10 @@
 env:
   browser: true
   es2021: true
+globals:
+  test: readonly
+  expect: readonly
+  beforeAll: readonly
 extends: airbnb-base
 overrides: []
 parserOptions:
