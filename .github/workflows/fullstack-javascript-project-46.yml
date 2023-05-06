@@ -1,0 +1,17 @@
+name: fullstack-javascript-project-46
+
+on:
+  - push
+env:
+  CI: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: make install
+      - run: make lint
+      - run: make test
