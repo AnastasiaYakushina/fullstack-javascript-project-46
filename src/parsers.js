@@ -1,6 +1,6 @@
-import * as yaml from 'node:js-yaml';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import yaml from 'js-yaml';
 
 const parseJSON = (filepath) => JSON.parse(fs.readFileSync(path.resolve(filepath)));
 
