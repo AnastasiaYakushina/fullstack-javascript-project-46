@@ -1,4 +1,4 @@
-import parse from './parse.js';
+import parse from './parsers.js';
 
 const compare = (filepath1, filepath2) => {
   const file1 = parse(filepath1);
