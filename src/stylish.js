@@ -2,14 +2,10 @@ import _ from 'lodash';
 
 const getName = (name, diff, value) => {
   let newName;
-  if (diff === 'added') {
+  if ((diff === 'added') || ((diff === 'changed') && (typeof value !== 'object' || value === null))) {
     newName = `  + ${name}`;
   } else if (diff === 'deleted') {
     newName = `  - ${name}`;
-  } else if (diff === 'unchanged') {
-    newName = `    ${name}`;
-  } else if (typeof value !== 'object' || value === null) {
-    newName = `  + ${name}`;
   } else {
     newName = `    ${name}`;
   }
