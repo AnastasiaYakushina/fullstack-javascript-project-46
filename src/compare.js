@@ -32,10 +32,14 @@ const getCompareArr = (fileOne, fileTwo) => {
   return result;
 };
 
-const compare = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, type) => {
   const file1 = parse(filepath1);
   const file2 = parse(filepath2);
-  return stylish(getCompareArr(file1, file2));
+  const result = getCompareArr(file1, file2);
+  if (type === 'bbb') {
+    return 'abba';
+  }
+  return stylish(result);
 };
 
-export default compare;
+export default genDiff;
