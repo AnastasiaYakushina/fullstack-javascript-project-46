@@ -15,12 +15,12 @@ const getCompareArr = (fileOne, fileTwo) => {
     } else if (!Object.hasOwn(fileTwo, key)) {
       obj.value = _.cloneDeep(value);
       obj.diff = 'deleted';
-    } else if (typeof value !== 'object' || value === null) {
+    } else if ((typeof value !== 'object' || value === null) || (typeof fileOne[key] !== 'object')) {
       obj.value = value;
       if (fileOne[key] === fileTwo[key]) {
         obj.diff = 'unchanged';
       } else {
-        obj.oldValue = fileOne[key];
+        obj.oldValue = _.cloneDeep(fileOne[key]);
         obj.diff = 'changed';
       }
     } else {

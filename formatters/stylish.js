@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
-const getName = (name, diff, value) => {
+const getName = (name, diff, oldValue) => {
   let newName;
-  if ((diff === 'added') || ((diff === 'changed') && (typeof value !== 'object' || value === null))) {
+  if ((diff === 'added') || ((diff === 'changed') && (oldValue !== undefined))) {
     newName = `  + ${name}`;
   } else if (diff === 'deleted') {
     newName = `  - ${name}`;
@@ -15,7 +15,7 @@ const getName = (name, diff, value) => {
 const modification = (differences) => {
   const obj = {};
   differences.map((node) => {
-    const nameOf = getName(node.name, node.diff, node.value);
+    const nameOf = getName(node.name, node.diff, node.oldValue);
     if (Object.hasOwn(node, 'oldValue')) {
       const oldName = `  - ${node.name}`;
       obj[oldName] = _.cloneDeep(node.oldValue);
