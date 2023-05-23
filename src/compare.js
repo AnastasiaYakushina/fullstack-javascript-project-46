@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parse from './parsers.js';
-import stylish from './stylish.js';
+import formatter from '../formatters/index.js';
 
 const getCompareArr = (fileOne, fileTwo) => {
   const mergedObject = { ...fileOne, ...fileTwo };
@@ -35,11 +35,7 @@ const getCompareArr = (fileOne, fileTwo) => {
 const genDiff = (filepath1, filepath2, type) => {
   const file1 = parse(filepath1);
   const file2 = parse(filepath2);
-  const result = getCompareArr(file1, file2);
-  if (type === 'bbb') {
-    return 'abba';
-  }
-  return stylish(result);
+  return formatter(getCompareArr(file1, file2), type);
 };
 
 export default genDiff;

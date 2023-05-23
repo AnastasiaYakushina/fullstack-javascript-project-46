@@ -8,10 +8,12 @@ const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-let result;
+let stylishRes;
+let plainRes;
 
 beforeAll(() => {
-  result = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
+  stylishRes = fs.readFileSync(getFixturePath('result.txt'), 'utf-8');
+  plainRes = fs.readFileSync(getFixturePath('plain_result.txt'), 'utf-8');
 });
 
 let jsonFile1;
@@ -30,10 +32,18 @@ beforeAll(() => {
   yamlFile2 = getFixturePath('file2.yml');
 });
 
-test('compare JSON', () => {
-  expect(compare(jsonFile1, jsonFile2)).toEqual(result);
+test('compare JSON - stylish', () => {
+  expect(compare(jsonFile1, jsonFile2)).toEqual(stylishRes);
 });
 
-test('compare YAML', () => {
-  expect(compare(yamlFile1, yamlFile2)).toEqual(result);
+test('compare YAML - stylish', () => {
+  expect(compare(yamlFile1, yamlFile2)).toEqual(stylishRes);
+});
+
+test('compare JSON - plain', () => {
+  expect(compare(jsonFile1, jsonFile2, 'plain')).toEqual(plainRes);
+});
+
+test('compare YAML - plain', () => {
+  expect(compare(yamlFile1, yamlFile2, 'plain')).toEqual(plainRes);
 });
