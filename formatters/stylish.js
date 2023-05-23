@@ -1,15 +1,12 @@
 import _ from 'lodash';
 
 const getName = (name, diff, oldValue) => {
-  let newName;
   if ((diff === 'added') || ((diff === 'changed') && (oldValue !== undefined))) {
-    newName = `  + ${name}`;
-  } else if (diff === 'deleted') {
-    newName = `  - ${name}`;
-  } else {
-    newName = `    ${name}`;
+    return `  + ${name}`;
+  } if (diff === 'deleted') {
+    return `  - ${name}`;
   }
-  return newName;
+  return `    ${name}`;
 };
 
 const modification = (differences) => {
