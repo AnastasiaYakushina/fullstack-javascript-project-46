@@ -7,27 +7,19 @@ const getCompareArr = (fileOne, fileTwo) => {
   const arrOf = Object.entries(mergedObject);
   const sortedArr = _.sortBy(arrOf);
   const result = sortedArr.map(([key, value]) => {
-    const obj = {};
-    obj.name = key;
     if (!Object.hasOwn(fileOne, key)) {
-      obj.value = _.cloneDeep(value);
-      obj.diff = 'added';
-    } else if (!Object.hasOwn(fileTwo, key)) {
-      obj.value = _.cloneDeep(value);
-      obj.diff = 'deleted';
-    } else if ((typeof value !== 'object' || value === null) || (typeof fileOne[key] !== 'object')) {
-      obj.value = value;
+      return { name: key, value: _.cloneDeep(value), diff: 'added' };
+    } if (!Object.hasOwn(fileTwo, key)) {
+      return { name: key, value: _.cloneDeep(value), diff: 'deleted' };
+    } if ((typeof value !== 'object' || value === null) || (typeof fileOne[key] !== 'object')) {
       if (fileOne[key] === fileTwo[key]) {
-        obj.diff = 'unchanged';
-      } else {
-        obj.oldValue = _.cloneDeep(fileOne[key]);
-        obj.diff = 'changed';
+        return { name: key, value, diff: 'unchanged' };
       }
-    } else {
-      obj.value = getCompareArr(_.cloneDeep(fileOne[key]), _.cloneDeep(fileTwo[key]));
-      obj.diff = 'changed';
+      return {
+        name: key, value, oldValue: _.cloneDeep(fileOne[key]), diff: 'changed',
+      };
     }
-    return obj;
+    return { name: key, value: getCompareArr(_.cloneDeep(fileOne[key]), _.cloneDeep(fileTwo[key])), diff: 'changed' };
   });
   return result;
 };
