@@ -10,21 +10,25 @@ const getName = (name, diff, oldValue) => {
 };
 
 const modification = (differences) => {
-  const obj = {};
-  differences.map((node) => {
+  const result = differences.reduce((acc, node) => {
     const nameOf = getName(node.name, node.diff, node.oldValue);
+    const newAcc = _.cloneDeep(acc);
     if (Object.hasOwn(node, 'oldValue')) {
       const oldName = `  - ${node.name}`;
-      obj[oldName] = _.cloneDeep(node.oldValue);
+      if (Array.isArray(node.value)) {
+        return {
+          ...newAcc, [oldName]: _.cloneDeep(node.oldValue), [nameOf]: modification(node.value),
+        };
+      }
+      return {
+        ...newAcc, [oldName]: _.cloneDeep(node.oldValue), [nameOf]: _.cloneDeep(node.value),
+      };
+    } if ((!Object.hasOwn(node, 'oldValue')) && (Array.isArray(node.value))) {
+      return { ...newAcc, [nameOf]: modification(node.value) };
     }
-    if (Array.isArray(node.value)) {
-      obj[nameOf] = modification(node.value);
-    } else {
-      obj[nameOf] = _.cloneDeep(node.value);
-    }
-    return obj;
-  });
-  return obj;
+    return { ...newAcc, [nameOf]: _.cloneDeep(node.value) };
+  }, {});
+  return result;
 };
 
 const makeString = (item) => String(item);
@@ -37,8 +41,7 @@ const stringify = (tree, replacer = '    ') => {
     const arr = Object.entries(data);
     const str = arr.reduce((acc, [key, value]) => {
       const indent = (key.startsWith(' ')) ? (replacer.repeat(depth - 1)) : replacer.repeat(depth);
-      let newAcc = acc;
-      newAcc += `${indent}${makeString(key)}: ${iter(value, depth + 1)}\n`;
+      const newAcc = `${acc}${indent}${makeString(key)}: ${iter(value, depth + 1)}\n`;
       return newAcc;
     }, '');
     return `{\n${str}${replacer.repeat(depth - 1)}}`;
