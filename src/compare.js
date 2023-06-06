@@ -2,32 +2,39 @@ import _ from 'lodash';
 import parse from './parsers.js';
 import formatter from '../formatters/index.js';
 
-const getCompareArr = (fileOne, fileTwo) => {
-  const mergedObject = { ...fileOne, ...fileTwo };
-  const arrOf = Object.entries(mergedObject);
-  const sortedArr = _.sortBy(arrOf);
-  const result = sortedArr.map(([key, value]) => {
-    if (!Object.hasOwn(fileOne, key)) {
-      return { name: key, value: _.cloneDeep(value), diff: 'added' };
-    } if (!Object.hasOwn(fileTwo, key)) {
-      return { name: key, value: _.cloneDeep(value), diff: 'deleted' };
-    } if ((typeof value !== 'object' || value === null) || (typeof fileOne[key] !== 'object')) {
-      if (fileOne[key] === fileTwo[key]) {
-        return { name: key, value, diff: 'unchanged' };
-      }
+const getArrOfDiff = (object1, object2) => {
+  const mergedObject = { ...object1, ...object2 }; // объединяем объекты
+  const sortedArrOfKey = _.sortBy(Object.keys(mergedObject)); // формируем и сортируем массив ключей
+  return sortedArrOfKey.map((key) => {
+    const value1 = object1[key];
+    const value2 = object2[key];
+    if (!Object.hasOwn(object1, key)) { // добавлено
       return {
-        name: key, value, oldValue: _.cloneDeep(fileOne[key]), diff: 'changed',
+        name: key, value: value2, diff: 'added',
+      };
+    } if (!Object.hasOwn(object2, key)) { // удалено
+      return {
+        name: key, value: value1, diff: 'deleted',
+      };
+    } if (object1[key] === object2[key]) { // изменений нет
+      return {
+        name: key, value: value1, diff: 'unchanged',
+      };
+    } if (!_.isPlainObject(object1[key]) || !_.isPlainObject(object2[key])) { // изменено
+      return {
+        name: key, value: value2, oldValue: value1, diff: 'changed',
       };
     }
-    return { name: key, value: getCompareArr(_.cloneDeep(fileOne[key]), _.cloneDeep(fileTwo[key])), diff: 'changed' };
+    return {
+      name: key, value: getArrOfDiff(value1, value2), diff: 'changed',
+    };
   });
-  return result;
 };
 
 const genDiff = (filepath1, filepath2, type) => {
   const file1 = parse(filepath1);
   const file2 = parse(filepath2);
-  return formatter(getCompareArr(file1, file2), type);
+  return formatter(getArrOfDiff(file1, file2), type);
 };
 
 export default genDiff;
