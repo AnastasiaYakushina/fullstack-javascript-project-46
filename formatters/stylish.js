@@ -37,7 +37,7 @@ const getObjectDiff = (arrOfDiff) => {
   return result;
 };
 
-const stringify = (tree, replacer = '    ') => {
+const stringify = (objectDiff, replacer = '    ') => {
   const iter = (data, depth) => {
     if (!_.isObject(data)) {
       return `${data}`;
@@ -50,7 +50,7 @@ const stringify = (tree, replacer = '    ') => {
     }, '');
     return `{\n${str}${replacer.repeat(depth - 1)}}`;
   };
-  return iter(tree, 1);
+  return iter(objectDiff, 1);
 };
 
 const stylish = (arrOfDiff) => stringify(getObjectDiff(arrOfDiff));
