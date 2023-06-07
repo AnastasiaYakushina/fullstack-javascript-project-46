@@ -7,7 +7,7 @@ const formatValue = (value) => { // форматируем значение: е�
   return (typeof value === 'string') ? `'${value}'` : value;
 };
 
-const plain = (differences) => {
+const plain = (arrOfDiff) => {
   const iter = (data, pathOfName) => {
     const result = data
       .filter((node) => node.diff !== 'unchanged') // исключаем значения без изменений
@@ -25,7 +25,7 @@ const plain = (differences) => {
       });
     return result.join('\n');
   };
-  return iter(differences, '');
+  return iter(arrOfDiff, '');
 };
 
 export default plain;

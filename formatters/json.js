@@ -1,2 +1,2 @@
-const json = (differences) => JSON.stringify(differences);
+const json = (arrOfDiff) => JSON.stringify(arrOfDiff);
 export default json;
