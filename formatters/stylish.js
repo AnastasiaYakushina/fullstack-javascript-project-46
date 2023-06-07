@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 // преобразование имени ключа в `${знак изменения}${имя ключа}`
-const getName = (name, diff, oldValue) => {
-  if ((diff === 'added') || ((diff === 'changed') && (oldValue !== undefined))) {
+const getName = (name, diff, item) => {
+  if ((diff === 'added') || ((diff === 'changed') && (Object.hasOwn(item, 'oldValue')))) {
     return `  + ${name}`;
   } if (diff === 'deleted') {
     return `  - ${name}`;
@@ -13,7 +13,7 @@ const getName = (name, diff, oldValue) => {
 // преобразование массива изменений в объект, где ключ: `${знак изменения}${имя ключа}`
 const getObjectDiff = (arrOfDiff) => {
   const result = arrOfDiff.reduce((acc, item) => {
-    const nameOf = getName(item.name, item.diff, item.oldValue);
+    const nameOf = getName(item.name, item.diff, item);
     const newAcc = acc;
     if (Object.hasOwn(item, 'oldValue')) {
       const oldName = `  - ${item.name}`;
