@@ -4,7 +4,7 @@
 ### Результат - дерево (по умолчанию):
 [![asciicast](https://asciinema.org/a/590273.svg)](https://asciinema.org/a/590273)
 
-### Результат - тект (--format plain):
+### Результат - текcт (--format plain):
 [![asciicast](https://asciinema.org/a/590278.svg)](https://asciinema.org/a/590278)
 
 ### Результат - json (--format json):
