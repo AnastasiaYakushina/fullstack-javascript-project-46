@@ -9,6 +9,17 @@
 - функции высшего порядка при полном отсутствии циклов
 
 <h4>Программа сравнивает два файла в формате <i>json</i> или <i>yaml</i>.</h4>
+
+<h4>Установка</h4>
+- git clone https://github.com/AnastasiaYakushina/fullstack-javascript-project-46.git
+- cd fullstack-javascript-project-46
+- npm install
+- sudo npm link
+
+
+<h4>Запуск</h4>
+- gendiff файл1 файл2
+
 <h4>Результат сравнения может быть представлен тремя способами:</h4>
 
 <h4>Дерево (по умолчанию):</h4>
