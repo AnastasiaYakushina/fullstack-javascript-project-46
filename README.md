@@ -8,16 +8,16 @@
 - древовидные структуры данных и рекурсивные алгоритмы
 - функции высшего порядка при полном отсутствии циклов
 
-Утилита сравнивает два файла в формате json или yamlю
+Утилита сравнивает два файла в формате json или yaml
 
 Установка:
-gh repo clone AnastasiaYakushina/fullstack-javascript-project-46
-cd frontend-project-46/
-make install
-npm link
+- gh repo clone AnastasiaYakushina/fullstack-javascript-project-46
+- cd frontend-project-46/
+- make install
+- npm link
 
 Исполнение:
-gendiff файл1 файл2
+- gendiff файл1 файл2
 
 Результат сравнения может быть представлен тремя способами:
 
