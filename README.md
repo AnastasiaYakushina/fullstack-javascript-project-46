@@ -12,10 +12,10 @@
 
 <h4>Установка</h4>
 <ul>
-<li>git clone https://github.com/AnastasiaYakushina/fullstack-javascript-project-46.git</li>
+<li>git clone ...</li>
 <li>cd fullstack-javascript-project-46</li>
 <li>npm install</li>
-<li>sudo npm link</li>
+<li>npm link</li>
 </ul>
 
 
