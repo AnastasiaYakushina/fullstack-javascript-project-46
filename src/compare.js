@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import parse from './parsers.js';
-import formatter from '../formatters/index.js';
+import formatter from './formatters/index.js';
 
 const getArrOfDiff = (object1, object2) => {
   const mergedObject = { ...object1, ...object2 }; // объединяем объекты

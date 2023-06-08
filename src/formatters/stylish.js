@@ -37,6 +37,7 @@ const getObjectDiff = (arrOfDiff) => {
   return result;
 };
 
+// форматирование объекта в строку с отступами в 4 пробела на каждом уровне
 const stringify = (objectDiff, replacer = '    ') => {
   const iter = (data, depth) => {
     if (!_.isObject(data)) {
@@ -44,6 +45,7 @@ const stringify = (objectDiff, replacer = '    ') => {
     }
     const arr = Object.entries(data);
     const str = arr.reduce((acc, [key, value]) => {
+      // если имя ключа формировалось через getName, то смещение на 1 уровень уже реализовано в нем
       const indent = (key.startsWith(' ')) ? (replacer.repeat(depth - 1)) : replacer.repeat(depth);
       const newAcc = `${acc}${indent}${key}: ${iter(value, depth + 1)}\n`;
       return newAcc;
