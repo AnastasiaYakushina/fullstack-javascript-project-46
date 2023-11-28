@@ -14,7 +14,7 @@
 <ul>
 <li>git clone ...</li>
 <li>cd fullstack-javascript-project-46</li>
-<li>npm install</li>
+<li>npm ci</li>
 <li>npm link</li>
 </ul>
 
